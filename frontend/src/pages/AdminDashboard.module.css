@@ -1,0 +1,67 @@
+.page {
+  padding: 1rem 0;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.header h1 {
+  font-size: 1.5rem;
+}
+
+.addBtn {
+  background: var(--accent);
+  color: white !important;
+  padding: 0.6rem 1.2rem;
+  border-radius: 10px;
+  font-weight: 600;
+}
+
+.addBtn:hover {
+  background: var(--accent-hover);
+}
+
+.empty {
+  color: var(--text-muted);
+  padding: 2rem;
+}
+
+.tableWrap {
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table th,
+.table td {
+  padding: 1rem;
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+}
+
+.table th {
+  color: var(--text-muted);
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.edit {
+  color: var(--accent);
+}
+
+.center,
+.error {
+  text-align: center;
+  padding: 3rem;
+}
+
+.error {
+  color: var(--error);
+}

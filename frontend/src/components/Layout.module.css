@@ -1,0 +1,153 @@
+.wrapper {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 2rem;
+  background: color-mix(in srgb, var(--bg-card) 90%, transparent);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--border);
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text);
+  letter-spacing: -0.02em;
+}
+
+.logo:hover {
+  color: var(--accent);
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.nav a {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+.nav a:hover {
+  color: var(--text);
+}
+
+.activeLink {
+  color: var(--text) !important;
+}
+
+.menuToggle {
+  display: none;
+  background: transparent;
+  color: var(--text);
+  border: 1px solid var(--border);
+  padding: 0.45rem 0.75rem;
+  font-size: 0.88rem;
+}
+
+.btnPrimary {
+  background: var(--accent);
+  color: white !important;
+  padding: 0.5rem 1rem;
+  border-radius: 10px;
+}
+
+.btnPrimary:hover {
+  background: var(--accent-hover);
+}
+
+.btnOutline {
+  background: transparent;
+  color: var(--text-muted);
+  padding: 0.5rem 1rem;
+  font-size: 0.95rem;
+  border: 1px solid var(--border);
+}
+
+.btnOutline:hover {
+  color: var(--text);
+  border-color: var(--text-muted);
+}
+
+.btnAdmin {
+  background: transparent;
+  color: var(--text-muted);
+  padding: 0.5rem 1rem;
+  font-size: 0.85rem;
+}
+
+.linkAdmin {
+  font-size: 0.85rem;
+  opacity: 0.8;
+}
+
+.main {
+  flex: 1;
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.footer {
+  padding: 1.5rem 2rem;
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  border-top: 1px solid var(--border);
+}
+
+@media (max-width: 900px) {
+  .header {
+    padding: 0.9rem 1rem;
+    flex-wrap: wrap;
+    gap: 0.9rem;
+  }
+
+  .menuToggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .nav {
+    display: none;
+    width: 100%;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.7rem;
+    padding-top: 0.25rem;
+  }
+
+  .navOpen {
+    display: flex;
+  }
+
+  .btnPrimary,
+  .btnOutline,
+  .btnAdmin {
+    width: 100%;
+    text-align: center;
+  }
+
+  .main {
+    padding: 1.5rem 1rem 2rem;
+  }
+
+  .footer {
+    padding: 1.2rem 1rem;
+  }
+}

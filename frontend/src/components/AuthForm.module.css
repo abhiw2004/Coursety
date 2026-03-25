@@ -1,0 +1,69 @@
+.wrapper {
+  max-width: 400px;
+  margin: 2rem auto;
+}
+
+.form {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 2rem;
+}
+
+.form h1 {
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.form label {
+  display: block;
+  font-size: 0.9rem;
+  margin-bottom: 0.4rem;
+  color: var(--text-muted);
+}
+
+.form input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  color: var(--text);
+  margin-bottom: 1rem;
+}
+
+.form input:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+.form button {
+  width: 100%;
+  padding: 0.9rem;
+  background: var(--accent);
+  color: white;
+  font-weight: 600;
+  margin-top: 0.5rem;
+}
+
+.form button:hover:not(:disabled) {
+  background: var(--accent-hover);
+}
+
+.form button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.error {
+  color: var(--error);
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
+}
+
+.footer {
+  margin-top: 1.25rem;
+  text-align: center;
+  font-size: 0.95rem;
+  color: var(--text-muted);
+}
