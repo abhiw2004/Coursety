@@ -1,25 +1,17 @@
-import { useState, useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { adminGetCourses } from '../api'
+import { listMyCourses, type Course } from '../api'
 import styles from './AdminDashboard.module.css'
 
-interface Course {
-  _id: string
-  title: string
-  description: string
-  price: number
-  imageUrl?: string
-}
-
-export default function AdminDashboard() {
+export default function InstructorDashboard() {
   const [courses, setCourses] = useState<Course[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
 
   useEffect(() => {
-    adminGetCourses()
-      .then((data) => setCourses(data.courses || []))
-      .catch((e) => setError(e.message))
+    listMyCourses()
+      .then((data) => setCourses(data.courses))
+      .catch((e) => setError((e as Error).message))
       .finally(() => setLoading(false))
   }, [])
 
@@ -29,8 +21,8 @@ export default function AdminDashboard() {
   return (
     <div className={styles.page}>
       <div className={styles.header}>
-        <h1>Admin Dashboard</h1>
-        <Link to="/admin/courses/new" className={styles.addBtn}>+ New Course</Link>
+        <h1>Instructor Dashboard</h1>
+        <Link to="/instructor/courses/new" className={styles.addBtn}>+ New Course</Link>
       </div>
       {courses.length === 0 ? (
         <p className={styles.empty}>No courses yet. Create your first course.</p>
@@ -41,6 +33,7 @@ export default function AdminDashboard() {
               <tr>
                 <th>Title</th>
                 <th>Price</th>
+                <th>Status</th>
                 <th>Actions</th>
               </tr>
             </thead>
@@ -49,8 +42,9 @@ export default function AdminDashboard() {
                 <tr key={c._id}>
                   <td>{c.title}</td>
                   <td>${c.price}</td>
+                  <td>{c.published ? 'Published' : 'Draft'}</td>
                   <td>
-                    <Link to={`/admin/courses/${c._id}/edit`} className={styles.edit}>Edit</Link>
+                    <Link to={`/instructor/courses/${c._id}/edit`} className={styles.edit}>Edit</Link>
                   </td>
                 </tr>
               ))}

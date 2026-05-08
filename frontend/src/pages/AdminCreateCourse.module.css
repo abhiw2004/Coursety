@@ -1,10 +1,12 @@
 .page {
   max-width: 560px;
   padding: 1rem 0;
+  margin: 0 auto;
 }
 
 .page h1 {
   margin-bottom: 1.5rem;
+  color: #0e604d;
 }
 
 .form label {
@@ -25,6 +27,14 @@
   margin-bottom: 1rem;
 }
 
+.form {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 1.25rem;
+  box-shadow: var(--shadow-sm);
+}
+
 .form input:focus,
 .form textarea:focus {
   outline: none;
@@ -36,14 +46,16 @@
 }
 
 .form button {
-  background: var(--accent);
-  color: white;
+  background: #d9f36b;
+  color: #0a3327;
   padding: 0.75rem 1.5rem;
   font-weight: 600;
+  border-radius: 999px;
+  border: 1px solid #cce65d;
 }
 
 .form button:hover:not(:disabled) {
-  background: var(--accent-hover);
+  background: #e4f987;
 }
 
 .form button:disabled {
@@ -54,4 +66,33 @@
 .error {
   color: var(--error);
   margin-bottom: 1rem;
+}
+
+.checkbox {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  color: var(--text);
+}
+
+.checkbox input {
+  width: auto;
+  margin: 0;
+}
+
+.actions {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.danger {
+  background: transparent !important;
+  color: #b1311f !important;
+  border: 1px solid #d9b3ad !important;
+}
+
+.danger:hover:not(:disabled) {
+  background: #fdecea !important;
 }

@@ -1,5 +1,5 @@
 .page {
-  padding: 1rem 0;
+  padding: 0.75rem 0;
 }
 
 .header {
@@ -10,19 +10,21 @@
 }
 
 .header h1 {
-  font-size: 1.5rem;
+  font-size: 1.75rem;
+  color: #0e604d;
 }
 
 .addBtn {
-  background: var(--accent);
-  color: white !important;
+  background: #d9f36b;
+  color: #0a3327 !important;
   padding: 0.6rem 1.2rem;
-  border-radius: 10px;
+  border-radius: 999px;
   font-weight: 600;
+  border: 1px solid #cce65d;
 }
 
 .addBtn:hover {
-  background: var(--accent-hover);
+  background: #e4f987;
 }
 
 .empty {
@@ -32,6 +34,10 @@
 
 .tableWrap {
   overflow-x: auto;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: var(--bg-card);
+  box-shadow: var(--shadow-sm);
 }
 
 .table {
@@ -50,6 +56,7 @@
   color: var(--text-muted);
   font-weight: 600;
   font-size: 0.9rem;
+  background: var(--bg-elevated);
 }
 
 .edit {
@@ -64,4 +71,79 @@
 
 .error {
   color: var(--error);
+}
+
+.filters {
+  display: inline-flex;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  overflow: hidden;
+  background: var(--bg-card);
+}
+
+.filter,
+.filterActive {
+  background: transparent;
+  color: var(--text-muted);
+  padding: 0.4rem 0.95rem;
+  font-size: 0.85rem;
+  text-transform: capitalize;
+  border: none;
+  cursor: pointer;
+}
+
+.filter:hover {
+  color: var(--text);
+}
+
+.filterActive {
+  background: #d9f36b;
+  color: #0a3327;
+  font-weight: 600;
+}
+
+.muted {
+  color: var(--text-muted);
+  font-size: 0.85rem;
+}
+
+.rowActions {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.approve {
+  background: #0f6d57;
+  color: #ffffff;
+  padding: 0.4rem 0.85rem;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  border: 1px solid #0f6d57;
+}
+
+.approve:hover:not(:disabled) {
+  background: #138167;
+}
+
+.danger {
+  background: transparent;
+  color: #b1311f;
+  padding: 0.4rem 0.85rem;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  border: 1px solid #d9b3ad;
+}
+
+.danger:hover:not(:disabled) {
+  background: #fdecea;
+}
+
+.table select {
+  padding: 0.35rem 0.5rem;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--bg-card);
+  color: var(--text);
+  font-family: inherit;
 }

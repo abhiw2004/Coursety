@@ -1,100 +1,180 @@
 .page {
   display: grid;
-  gap: 2rem;
+  gap: 2.5rem;
 }
 
 .hero {
-  text-align: center;
-  padding: 3rem 1rem 1rem;
+  background: linear-gradient(150deg, #005342 0%, #004738 100%);
+  border-radius: 20px;
+  padding: 2.5rem;
+  color: #f5fbf9;
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 1.2rem;
+  align-items: center;
+  box-shadow: 0 24px 48px rgba(0, 46, 38, 0.25);
+}
+
+.heroContent {
+  max-width: 560px;
 }
 
 .kicker {
-  font-size: 0.92rem;
-  color: var(--accent);
+  font-size: 0.85rem;
+  color: #d9f36b;
   font-weight: 600;
   text-transform: uppercase;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.08em;
   margin-bottom: 0.6rem;
 }
 
 .hero h1 {
-  font-size: clamp(2.5rem, 6vw, 4rem);
+  font-size: clamp(2rem, 5vw, 3.3rem);
   font-weight: 700;
-  line-height: 1.15;
+  line-height: 1.2;
   letter-spacing: -0.03em;
   margin-bottom: 1rem;
 }
 
 .hero h1 span {
-  color: var(--accent);
+  color: #d9f36b;
 }
 
 .hero p {
-  font-size: 1.2rem;
-  color: var(--text-muted);
-  max-width: 500px;
-  margin: 0 auto 2rem;
+  font-size: 1.02rem;
+  color: #cae2dc;
+  max-width: 520px;
+  margin: 0 0 1.6rem;
 }
 
 .actions {
   display: flex;
   gap: 1rem;
-  justify-content: center;
   flex-wrap: wrap;
+  margin-bottom: 1rem;
 }
 
 .cta {
   display: inline-block;
-  background: var(--accent);
-  color: white !important;
-  padding: 1rem 2rem;
+  background: #d9f36b;
+  color: #0b2f24 !important;
+  padding: 0.85rem 1.4rem;
   border-radius: 12px;
   font-weight: 600;
-  transition: background 0.2s;
+  transition: transform 0.2s ease, background 0.2s ease;
 }
 
 .cta:hover {
-  background: var(--accent-hover);
+  background: #e2f980;
+  color: #08291f !important;
+  transform: translateY(-1px);
 }
 
 .secondary {
   display: inline-block;
-  padding: 1rem 2rem;
-  border: 2px solid var(--border);
+  padding: 0.85rem 1.4rem;
+  border: 1px solid rgba(226, 248, 239, 0.35);
   border-radius: 12px;
   font-weight: 600;
-  color: var(--text) !important;
+  color: #edf7f4 !important;
 }
 
 .secondary:hover {
-  border-color: var(--accent);
-  color: var(--accent) !important;
+  border-color: #d9f36b;
+  color: #d9f36b !important;
 }
 
-.metrics {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+.heroStats {
+  display: flex;
+  flex-wrap: wrap;
   gap: 1rem;
+  color: #d4e7e2;
+  font-size: 0.9rem;
 }
 
-.metrics > div {
+.heroStats strong {
+  color: #ffffff;
+  margin-right: 0.3rem;
+}
+
+.heroArt {
+  min-height: 280px;
+  position: relative;
+  isolation: isolate;
+}
+
+.heroBlob {
+  position: absolute;
+  right: 1.2rem;
+  top: 50%;
+  width: 260px;
+  height: 260px;
+  border-radius: 999px;
+  transform: translateY(-50%);
+  background: #d9f36b;
+}
+
+.heroPerson {
+  position: absolute;
+  right: 2.1rem;
+  top: 54%;
+  transform: translateY(-50%);
+  width: 230px;
+  height: 250px;
+  border-radius: 130px 130px 16px 16px;
+  background:
+    radial-gradient(circle at 50% 22%, #f9d0bd 0 22%, transparent 23%),
+    radial-gradient(circle at 50% 11%, #2d2f32 0 12%, transparent 13%),
+    linear-gradient(180deg, #f5c3ab 0 36%, #e5b398 36% 46%, #f0b89f 46% 100%);
+  box-shadow: 0 20px 32px rgba(0, 24, 19, 0.3);
+  z-index: 1;
+}
+
+.floatingCard,
+.floatingCardAlt {
+  position: absolute;
+  background: #ffffff;
+  color: #093528;
+  border-radius: 10px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  padding: 0.5rem 0.65rem;
+  box-shadow: 0 14px 28px rgba(0, 32, 26, 0.22);
+  z-index: 2;
+}
+
+.floatingCard {
+  left: 0.4rem;
+  top: 24%;
+}
+
+.floatingCardAlt {
+  right: 0;
+  bottom: 12%;
+}
+
+.why,
+.latest,
+.teachers,
+.testimonial {
   background: var(--bg-card);
   border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 1rem;
-  text-align: center;
-  box-shadow: var(--shadow-sm);
+  border-radius: 16px;
+  padding: 1.6rem;
 }
 
-.metrics strong {
-  display: block;
-  font-size: 1.3rem;
+.why h2,
+.latest h2,
+.teachers h2,
+.testimonial h2 {
+  font-size: 1.6rem;
+  margin-bottom: 0.45rem;
   color: var(--text);
 }
 
-.metrics span {
+.why > p {
   color: var(--text-muted);
-  font-size: 0.9rem;
+  margin-bottom: 1rem;
 }
 
 .highlights {
@@ -104,7 +184,7 @@
 }
 
 .card {
-  background: var(--bg-card);
+  background: var(--bg-elevated);
   border: 1px solid var(--border);
   border-radius: 14px;
   padding: 1.25rem;
@@ -120,13 +200,178 @@
   font-size: 0.92rem;
 }
 
+.sectionHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.inlineCta {
+  background: #0f6d57;
+  color: #e9fff8 !important;
+  border-radius: 999px;
+  padding: 0.45rem 0.95rem;
+  font-size: 0.84rem;
+}
+
+.inlineCta:hover {
+  background: #138167;
+}
+
+.courseGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.courseCard {
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  overflow: hidden;
+  background: var(--bg-elevated);
+}
+
+.courseThumb {
+  height: 140px;
+  background:
+    linear-gradient(120deg, rgba(217, 243, 107, 0.16), rgba(217, 243, 107, 0)),
+    linear-gradient(140deg, #0a4f40, #116b57);
+  overflow: hidden;
+}
+
+.courseThumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.empty {
+  color: var(--text-muted);
+  padding: 1.2rem;
+  border: 1px dashed var(--border);
+  border-radius: 12px;
+  background: var(--bg-elevated);
+  grid-column: 1 / -1;
+}
+
+.courseBody {
+  padding: 0.95rem;
+}
+
+.courseCategory {
+  color: #8fd9bc;
+  font-weight: 600;
+  font-size: 0.8rem;
+  margin-bottom: 0.35rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.courseBody h3 {
+  font-size: 1rem;
+  margin-bottom: 0.55rem;
+}
+
+.courseMeta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: var(--text-muted);
+  font-size: 0.86rem;
+}
+
+.courseMeta strong {
+  color: #d9f36b;
+}
+
+.teacherGrid {
+  margin-top: 1rem;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.9rem;
+}
+
+.teacherCard {
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 0.9rem;
+  background: var(--bg-elevated);
+  text-align: center;
+}
+
+.teacherAvatar {
+  width: 74px;
+  height: 74px;
+  margin: 0 auto 0.65rem;
+  border-radius: 999px;
+  border: 5px solid #d9f36b;
+  background: linear-gradient(135deg, #f9d0bd, #ddb6a4);
+}
+
+.teacherCard h3 {
+  font-size: 0.95rem;
+}
+
+.teacherCard p {
+  color: var(--text-muted);
+  font-size: 0.83rem;
+}
+
+.testimonial p {
+  color: var(--text-muted);
+}
+
+.testimonial span {
+  display: inline-block;
+  margin-top: 0.7rem;
+  color: #9ee6ca;
+  font-size: 0.9rem;
+}
+
 @media (max-width: 900px) {
   .hero {
-    padding-top: 1.5rem;
+    grid-template-columns: 1fr;
+    padding: 1.6rem;
   }
 
-  .metrics,
-  .highlights {
+  .heroArt {
+    min-height: 250px;
+  }
+
+  .heroBlob {
+    width: 210px;
+    height: 210px;
+    right: 50%;
+    transform: translate(50%, -50%);
+  }
+
+  .heroPerson {
+    right: 50%;
+    width: 185px;
+    height: 220px;
+    transform: translate(50%, -50%);
+  }
+
+  .floatingCard {
+    left: 0;
+    top: 14%;
+  }
+
+  .floatingCardAlt {
+    right: 0;
+    bottom: 8%;
+  }
+
+  .highlights,
+  .courseGrid,
+  .teacherGrid {
     grid-template-columns: 1fr;
+  }
+
+  .sectionHeader {
+    flex-direction: column;
+    align-items: flex-start;
   }
 }

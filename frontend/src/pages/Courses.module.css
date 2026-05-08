@@ -1,10 +1,11 @@
 .page {
-  padding: 1rem 0;
+  padding: 0.75rem 0 1rem;
 }
 
 .page h1 {
-  margin-bottom: 1.5rem;
-  font-size: 1.75rem;
+  margin-bottom: 1.2rem;
+  font-size: 1.9rem;
+  color: #0e604d;
 }
 
 .grid {
@@ -16,21 +17,23 @@
 .card {
   background: var(--bg-card);
   border: 1px solid var(--border);
-  border-radius: 14px;
+  border-radius: 16px;
   overflow: hidden;
   transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
   box-shadow: var(--shadow-sm);
 }
 
 .card:hover {
-  border-color: var(--accent);
+  border-color: #9dcfbe;
   transform: translateY(-2px);
   box-shadow: var(--shadow-md);
 }
 
 .imgWrap {
   aspect-ratio: 16/9;
-  background: var(--bg-elevated);
+  background:
+    linear-gradient(120deg, rgba(217, 243, 107, 0.16), rgba(217, 243, 107, 0)),
+    linear-gradient(140deg, #0a4f40, #116b57);
   overflow: hidden;
 }
 
@@ -46,8 +49,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--text-muted);
-  font-size: 0.9rem;
+  color: #d9ede7;
+  font-size: 0.95rem;
+  font-weight: 600;
 }
 
 .content {
@@ -68,7 +72,7 @@
 
 .price {
   font-weight: 600;
-  color: var(--accent);
+  color: #0f6d57;
 }
 
 .center {

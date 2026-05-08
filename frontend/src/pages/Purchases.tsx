@@ -1,38 +1,32 @@
-import { useState, useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { getUserPurchases } from '../api'
+import { listMyPurchases, type Course } from '../api'
 import styles from './Courses.module.css'
 
-interface Course {
-  _id: string
-  title: string
-  description: string
-  price: number
-  imageUrl?: string
-}
-
-interface Purchase {
-  _id: string
-  courseId: Course
-}
-
 export default function Purchases() {
-  const [purchases, setPurchases] = useState<Purchase[]>([])
+  const [courses, setCourses] = useState<Course[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
 
   useEffect(() => {
-    getUserPurchases()
-      .then((data) => setPurchases(data.purchases || []))
-      .catch((e) => setError(e.message))
+    listMyPurchases()
+      .then((data) => {
+        const valid = data.purchases.map((p) => p.courseId).filter((c): c is Course => Boolean(c))
+        setCourses(valid)
+      })
+      .catch((e) => setError((e as Error).message))
       .finally(() => setLoading(false))
   }, [])
 
   if (loading) return <div className={styles.center}>Loading your courses...</div>
   if (error) return <div className={styles.error}>Error: {error}</div>
-  if (!purchases.length) return <div className={styles.center}>You haven't purchased any courses yet. <Link to="/courses">Browse courses</Link></div>
-
-  const courses = purchases.map((p) => p.courseId).filter(Boolean)
+  if (!courses.length) {
+    return (
+      <div className={styles.center}>
+        You haven't enrolled in any courses yet. <Link to="/courses">Browse courses</Link>
+      </div>
+    )
+  }
 
   return (
     <div className={styles.page}>
@@ -49,7 +43,10 @@ export default function Purchases() {
             </div>
             <div className={styles.content}>
               <h3>{c.title}</h3>
-              <p>{c.description?.slice(0, 100)}{c.description?.length > 100 ? '...' : ''}</p>
+              <p>
+                {c.description?.slice(0, 100)}
+                {c.description && c.description.length > 100 ? '...' : ''}
+              </p>
               <span className={styles.price}>View course →</span>
             </div>
           </Link>

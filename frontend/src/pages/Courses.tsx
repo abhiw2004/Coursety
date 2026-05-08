@@ -1,15 +1,7 @@
-import { useState, useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { getCourses } from '../api'
+import { listCourses, type Course } from '../api'
 import styles from './Courses.module.css'
-
-interface Course {
-  _id: string
-  title: string
-  description: string
-  price: number
-  imageUrl?: string
-}
 
 export default function Courses() {
   const [courses, setCourses] = useState<Course[]>([])
@@ -17,9 +9,9 @@ export default function Courses() {
   const [error, setError] = useState('')
 
   useEffect(() => {
-    getCourses()
-      .then((data) => setCourses(data.courses || []))
-      .catch((e) => setError(e.message))
+    listCourses()
+      .then((data) => setCourses(data.courses))
+      .catch((e) => setError((e as Error).message))
       .finally(() => setLoading(false))
   }, [])
 
@@ -42,7 +34,7 @@ export default function Courses() {
             </div>
             <div className={styles.content}>
               <h3>{c.title}</h3>
-              <p>{c.description?.slice(0, 100)}{c.description?.length > 100 ? '...' : ''}</p>
+              <p>{c.description?.slice(0, 100)}{c.description && c.description.length > 100 ? '...' : ''}</p>
               <span className={styles.price}>${c.price}</span>
             </div>
           </Link>

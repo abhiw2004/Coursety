@@ -1,18 +1,20 @@
 .wrapper {
-  max-width: 400px;
+  max-width: 440px;
   margin: 2rem auto;
 }
 
 .form {
   background: var(--bg-card);
   border: 1px solid var(--border);
-  border-radius: 14px;
+  border-radius: 16px;
   padding: 2rem;
+  box-shadow: var(--shadow-sm);
 }
 
 .form h1 {
   font-size: 1.5rem;
   margin-bottom: 1.5rem;
+  color: #0e604d;
 }
 
 .form label {
@@ -39,15 +41,17 @@
 
 .form button {
   width: 100%;
-  padding: 0.9rem;
-  background: var(--accent);
-  color: white;
+  padding: 0.85rem;
+  background: #d9f36b;
+  color: #0a3327;
   font-weight: 600;
   margin-top: 0.5rem;
+  border-radius: 999px;
+  border: 1px solid #cce65d;
 }
 
 .form button:hover:not(:disabled) {
-  background: var(--accent-hover);
+  background: #e4f987;
 }
 
 .form button:disabled {

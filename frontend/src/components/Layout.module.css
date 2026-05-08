@@ -12,7 +12,7 @@
   align-items: center;
   justify-content: space-between;
   padding: 1rem 2rem;
-  background: color-mix(in srgb, var(--bg-card) 90%, transparent);
+  background: color-mix(in srgb, var(--bg-card) 92%, transparent);
   backdrop-filter: blur(8px);
   border-bottom: 1px solid var(--border);
 }
@@ -20,7 +20,7 @@
 .logo {
   font-size: 1.5rem;
   font-weight: 700;
-  color: var(--text);
+  color: #0e604d;
   letter-spacing: -0.02em;
 }
 
@@ -59,34 +59,36 @@
 }
 
 .btnPrimary {
-  background: var(--accent);
-  color: white !important;
+  background: #d9f36b;
+  color: #0c3529 !important;
   padding: 0.5rem 1rem;
-  border-radius: 10px;
+  border-radius: 999px;
+  border: 1px solid #cde75f;
 }
 
 .btnPrimary:hover {
-  background: var(--accent-hover);
+  background: #e3f986;
 }
 
 .btnOutline {
   background: transparent;
-  color: var(--text-muted);
+  color: #0f6d57;
   padding: 0.5rem 1rem;
   font-size: 0.95rem;
-  border: 1px solid var(--border);
+  border: 1px solid #99c6b8;
 }
 
 .btnOutline:hover {
-  color: var(--text);
-  border-color: var(--text-muted);
+  color: #0b5746;
+  border-color: #0f6d57;
 }
 
 .btnAdmin {
   background: transparent;
-  color: var(--text-muted);
+  color: #5f7a72;
   padding: 0.5rem 1rem;
   font-size: 0.85rem;
+  border: 1px solid var(--border);
 }
 
 .linkAdmin {

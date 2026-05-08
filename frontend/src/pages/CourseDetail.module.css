@@ -2,13 +2,18 @@
   display: grid;
   gap: 2rem;
   max-width: 800px;
+  margin: 0 auto;
 }
 
 .imgSection {
   aspect-ratio: 16/9;
-  background: var(--bg-card);
-  border-radius: 14px;
+  background:
+    linear-gradient(120deg, rgba(217, 243, 107, 0.16), rgba(217, 243, 107, 0)),
+    linear-gradient(140deg, #0a4f40, #116b57);
+  border-radius: 16px;
   overflow: hidden;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow-sm);
 }
 
 .imgSection img {
@@ -23,12 +28,14 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--text-muted);
+  color: #d8eee6;
+  font-weight: 600;
 }
 
 .content h1 {
-  font-size: 1.75rem;
+  font-size: 2rem;
   margin-bottom: 0.75rem;
+  color: #0e604d;
 }
 
 .desc {
@@ -41,6 +48,10 @@
   display: flex;
   align-items: center;
   gap: 1rem;
+  padding: 1rem;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: var(--bg-card);
 }
 
 .price {
@@ -50,14 +61,16 @@
 }
 
 .buyBtn {
-  background: var(--accent);
-  color: white;
+  background: #d9f36b;
+  color: #0a3327;
   padding: 0.75rem 1.5rem;
   font-weight: 600;
+  border-radius: 999px;
+  border: 1px solid #cce65d;
 }
 
 .buyBtn:hover:not(:disabled) {
-  background: var(--accent-hover);
+  background: #e4f987;
 }
 
 .buyBtn:disabled {

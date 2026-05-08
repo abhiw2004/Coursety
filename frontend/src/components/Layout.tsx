@@ -1,13 +1,19 @@
 import { useState } from 'react'
-import { Outlet, Link, NavLink } from 'react-router-dom'
+import { Outlet, Link, NavLink, useNavigate } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
 import styles from './Layout.module.css'
 
 export default function Layout() {
-  const { userToken, adminToken, signOutUser, signOutAdmin } = useAuth()
+  const { user, isInstructor, isAdmin, signOut } = useAuth()
   const [navOpen, setNavOpen] = useState(false)
+  const navigate = useNavigate()
 
   const closeNav = () => setNavOpen(false)
+  const handleSignOut = () => {
+    signOut()
+    closeNav()
+    navigate('/')
+  }
 
   return (
     <div className={styles.wrapper}>
@@ -24,26 +30,52 @@ export default function Layout() {
           {navOpen ? 'Close' : 'Menu'}
         </button>
         <nav id="main-navigation" className={`${styles.nav} ${navOpen ? styles.navOpen : ''}`}>
-          <NavLink to="/" className={({ isActive }) => (isActive ? styles.activeLink : '')} onClick={closeNav}>Home</NavLink>
-          <NavLink to="/courses" className={({ isActive }) => (isActive ? styles.activeLink : '')} onClick={closeNav}>Courses</NavLink>
-          {userToken ? (
+          <NavLink to="/" end className={({ isActive }) => (isActive ? styles.activeLink : '')} onClick={closeNav}>
+            Home
+          </NavLink>
+          <NavLink to="/courses" className={({ isActive }) => (isActive ? styles.activeLink : '')} onClick={closeNav}>
+            Courses
+          </NavLink>
+
+          {user && (
+            <NavLink to="/purchases" className={({ isActive }) => (isActive ? styles.activeLink : '')} onClick={closeNav}>
+              My Courses
+            </NavLink>
+          )}
+
+          {isInstructor && (
+            <NavLink to="/instructor" className={({ isActive }) => (isActive ? styles.activeLink : '')} onClick={closeNav}>
+              Instructor
+            </NavLink>
+          )}
+
+          {isAdmin && (
+            <NavLink to="/admin/requests" className={({ isActive }) => (isActive ? styles.activeLink : '')} onClick={closeNav}>
+              Admin
+            </NavLink>
+          )}
+
+          {!user && (
             <>
-              <NavLink to="/purchases" className={({ isActive }) => (isActive ? styles.activeLink : '')} onClick={closeNav}>My Courses</NavLink>
-              <button onClick={() => { signOutUser(); closeNav() }} className={styles.btnOutline}>Sign Out</button>
-            </>
-          ) : (
-            <>
-              <NavLink to="/user/signin" className={({ isActive }) => (isActive ? styles.activeLink : '')} onClick={closeNav}>Sign In</NavLink>
-              <Link to="/user/signup" className={styles.btnPrimary} onClick={closeNav}>Sign Up</Link>
+              <NavLink to="/signin" className={({ isActive }) => (isActive ? styles.activeLink : '')} onClick={closeNav}>
+                Sign In
+              </NavLink>
+              <Link to="/signup" className={styles.btnPrimary} onClick={closeNav}>
+                Sign Up
+              </Link>
             </>
           )}
-          {adminToken ? (
-            <>
-              <NavLink to="/admin" className={({ isActive }) => (isActive ? styles.activeLink : '')} onClick={closeNav}>Dashboard</NavLink>
-              <button onClick={() => { signOutAdmin(); closeNav() }} className={styles.btnAdmin}>Admin Sign Out</button>
-            </>
-          ) : (
-            <NavLink to="/admin/signin" className={({ isActive }) => `${styles.linkAdmin} ${isActive ? styles.activeLink : ''}`} onClick={closeNav}>Admin</NavLink>
+
+          {user && !isInstructor && (
+            <Link to="/become-instructor" className={styles.btnOutline} onClick={closeNav}>
+              Teach
+            </Link>
+          )}
+
+          {user && (
+            <button onClick={handleSignOut} className={styles.btnOutline}>
+              Sign Out
+            </button>
           )}
         </nav>
       </header>

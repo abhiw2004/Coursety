@@ -1,42 +1,85 @@
-import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import { createContext, useContext, useState, useEffect, useCallback, ReactNode } from 'react'
+import { getToken, setToken, me, type PublicUser, type Role } from '../api'
 
 type AuthContextType = {
-  userToken: string | null;
-  adminToken: string | null;
-  setUserToken: (t: string | null) => void;
-  setAdminToken: (t: string | null) => void;
-  signOutUser: () => void;
-  signOutAdmin: () => void;
-};
+  token: string | null
+  user: PublicUser | null
+  loading: boolean
+  isLearner: boolean
+  isInstructor: boolean
+  isAdmin: boolean
+  signIn: (token: string, user: PublicUser) => void
+  signOut: () => void
+  refresh: () => Promise<void>
+  hasRole: (...roles: Role[]) => boolean
+}
 
-const AuthContext = createContext<AuthContextType | null>(null);
+const AuthContext = createContext<AuthContextType | null>(null)
 
 export function AuthProvider({ children }: { children: ReactNode }) {
-  const [userToken, setUserToken] = useState<string | null>(() => localStorage.getItem('userToken'));
-  const [adminToken, setAdminToken] = useState<string | null>(() => localStorage.getItem('adminToken'));
+  const [token, setTokenState] = useState<string | null>(() => getToken())
+  const [user, setUser] = useState<PublicUser | null>(null)
+  const [loading, setLoading] = useState<boolean>(Boolean(token))
+
+  const refresh = useCallback(async () => {
+    const t = getToken()
+    if (!t) {
+      setUser(null)
+      setLoading(false)
+      return
+    }
+    try {
+      const { user } = await me()
+      setUser(user)
+    } catch {
+      setToken(null)
+      setTokenState(null)
+      setUser(null)
+    } finally {
+      setLoading(false)
+    }
+  }, [])
 
   useEffect(() => {
-    if (userToken) localStorage.setItem('userToken', userToken);
-    else localStorage.removeItem('userToken');
-  }, [userToken]);
+    refresh()
+  }, [refresh])
 
-  useEffect(() => {
-    if (adminToken) localStorage.setItem('adminToken', adminToken);
-    else localStorage.removeItem('adminToken');
-  }, [adminToken]);
+  const signIn = useCallback((t: string, u: PublicUser) => {
+    setToken(t)
+    setTokenState(t)
+    setUser(u)
+    setLoading(false)
+  }, [])
 
-  const signOutUser = () => setUserToken(null);
-  const signOutAdmin = () => setAdminToken(null);
+  const signOut = useCallback(() => {
+    setToken(null)
+    setTokenState(null)
+    setUser(null)
+  }, [])
 
-  return (
-    <AuthContext.Provider value={{ userToken, adminToken, setUserToken, setAdminToken, signOutUser, signOutAdmin }}>
-      {children}
-    </AuthContext.Provider>
-  );
+  const hasRole = useCallback(
+    (...roles: Role[]) => Boolean(user && roles.includes(user.role)),
+    [user]
+  )
+
+  const value: AuthContextType = {
+    token,
+    user,
+    loading,
+    isLearner: user?.role === 'learner',
+    isInstructor: user?.role === 'instructor' || user?.role === 'admin',
+    isAdmin: user?.role === 'admin',
+    signIn,
+    signOut,
+    refresh,
+    hasRole,
+  }
+
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
 }
 
 export function useAuth() {
-  const ctx = useContext(AuthContext);
-  if (!ctx) throw new Error('useAuth must be used within AuthProvider');
-  return ctx;
+  const ctx = useContext(AuthContext)
+  if (!ctx) throw new Error('useAuth must be used within AuthProvider')
+  return ctx
 }
