@@ -20,6 +20,27 @@ const courseSchema = z.object({
 
 const courseUpdateSchema = courseSchema.partial();
 
+const lessonSchema = z.object({
+  _id: z.string().optional(),
+  title: z.string().trim().min(1).max(200),
+  description: z.string().trim().max(2000).optional().default(""),
+  videoUrl: z.string().trim().max(2000).optional().default(""),
+  duration: z.number().nonnegative().max(10000).optional().default(0),
+  order: z.number().int().nonnegative().optional().default(0),
+  isPreview: z.boolean().optional().default(false),
+});
+
+const sectionSchema = z.object({
+  _id: z.string().optional(),
+  title: z.string().trim().min(1).max(200),
+  order: z.number().int().nonnegative().optional().default(0),
+  lessons: z.array(lessonSchema).optional().default([]),
+});
+
+const curriculumSchema = z.object({
+  sections: z.array(sectionSchema).max(50),
+});
+
 function isValidObjectId(id) {
   return mongoose.Types.ObjectId.isValid(id);
 }
@@ -92,6 +113,45 @@ instructorRouter.post(
         published: parsed.data.published ?? false,
       });
       return res.status(201).json({ course });
+    } catch (err) {
+      next(err);
+    }
+  }
+);
+
+instructorRouter.put(
+  "/courses/:id/curriculum",
+  authRequired,
+  requireRole("instructor", "admin"),
+  async (req, res, next) => {
+    try {
+      const { id } = req.params;
+      if (!isValidObjectId(id)) return res.status(400).json({ message: "Invalid course id" });
+
+      const parsed = curriculumSchema.safeParse(req.body);
+      if (!parsed.success) {
+        return res.status(400).json({ message: "Invalid curriculum", issues: parsed.error.issues });
+      }
+
+      const filter = { _id: id };
+      if (req.user.role !== "admin") filter.creatorId = req.user.id;
+
+      const sections = parsed.data.sections.map((section, sIdx) => ({
+        title: section.title,
+        order: section.order ?? sIdx,
+        lessons: (section.lessons || []).map((lesson, lIdx) => ({
+          title: lesson.title,
+          description: lesson.description || "",
+          videoUrl: lesson.videoUrl || "",
+          duration: lesson.duration ?? 0,
+          order: lesson.order ?? lIdx,
+          isPreview: lesson.isPreview ?? false,
+        })),
+      }));
+
+      const course = await Course.findOneAndUpdate(filter, { sections }, { new: true });
+      if (!course) return res.status(404).json({ message: "Course not found" });
+      return res.json({ course });
     } catch (err) {
       next(err);
     }

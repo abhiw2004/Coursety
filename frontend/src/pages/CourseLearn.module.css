@@ -1,0 +1,259 @@
+.page {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.topBar {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.backLink {
+  display: inline-block;
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
+  color: var(--text-muted);
+}
+
+.backLink:hover {
+  color: var(--accent);
+}
+
+.topBar h1 {
+  font-size: 1.5rem;
+  color: #0e604d;
+}
+
+.progressWrap {
+  min-width: 200px;
+  text-align: right;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.progressBar {
+  margin-top: 0.4rem;
+  height: 8px;
+  background: var(--border);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.progressFill {
+  height: 100%;
+  background: var(--accent);
+  border-radius: 999px;
+  transition: width 0.3s;
+}
+
+.layout {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: 1.5rem;
+  align-items: start;
+}
+
+.sidebar {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 1rem;
+  max-height: calc(100vh - 200px);
+  overflow-y: auto;
+  box-shadow: var(--shadow-sm);
+}
+
+.sidebar h2 {
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  color: #0e604d;
+}
+
+.section {
+  margin-bottom: 1rem;
+}
+
+.section h3 {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.section ul {
+  list-style: none;
+}
+
+.lessonBtn {
+  width: 100%;
+  text-align: left;
+  background: transparent;
+  padding: 0.6rem 0.75rem;
+  border-radius: 10px;
+  border: 1px solid transparent;
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.lessonBtn:hover {
+  background: var(--bg-elevated);
+}
+
+.activeLesson {
+  background: rgba(15, 109, 87, 0.08);
+  border-color: rgba(15, 109, 87, 0.2);
+}
+
+.lessonTitle {
+  font-size: 0.9rem;
+  color: var(--text);
+}
+
+.lessonMeta {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+}
+
+.previewBadge {
+  display: inline-block;
+  font-size: 0.65rem;
+  background: #e8f5e9;
+  color: #2e7d32;
+  padding: 0.1rem 0.4rem;
+  border-radius: 4px;
+  width: fit-content;
+}
+
+.playerArea {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+}
+
+.videoWrap {
+  aspect-ratio: 16/9;
+  background: #0a1f1a;
+}
+
+.videoWrap iframe,
+.videoWrap video {
+  width: 100%;
+  height: 100%;
+  border: none;
+  display: block;
+}
+
+.noVideo {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #b8d4cb;
+  gap: 0.5rem;
+  padding: 2rem;
+  text-align: center;
+}
+
+.hint {
+  font-size: 0.85rem;
+  opacity: 0.8;
+}
+
+.lessonInfo {
+  padding: 1.25rem 1.5rem;
+}
+
+.lessonInfo h2 {
+  font-size: 1.25rem;
+  margin-bottom: 0.5rem;
+  color: #0e604d;
+}
+
+.lessonInfo p {
+  color: var(--text-muted);
+  line-height: 1.7;
+  margin-bottom: 1rem;
+}
+
+.lessonActions {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.completeBtn {
+  background: #d9f36b;
+  color: #0a3327;
+  padding: 0.6rem 1.25rem;
+  font-weight: 600;
+  border-radius: 999px;
+  border: 1px solid #cce65d;
+}
+
+.completeBtn:hover:not(:disabled) {
+  background: #e4f987;
+}
+
+.completeBtn:disabled {
+  opacity: 0.6;
+}
+
+.completedLabel {
+  color: var(--success);
+  font-weight: 600;
+}
+
+.nextBtn {
+  background: transparent;
+  color: var(--accent);
+  padding: 0.6rem 1rem;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  font-weight: 500;
+}
+
+.nextBtn:hover {
+  background: var(--bg-elevated);
+}
+
+.center {
+  text-align: center;
+  padding: 3rem 1.5rem;
+  color: var(--text-muted);
+}
+
+.empty {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+.buyLink {
+  display: block;
+  margin: 1rem auto 0;
+  background: #d9f36b;
+  color: #0a3327;
+  padding: 0.75rem 1.5rem;
+  font-weight: 600;
+  border-radius: 999px;
+  width: fit-content;
+}
+
+@media (max-width: 900px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+
+  .sidebar {
+    max-height: 280px;
+  }
+}

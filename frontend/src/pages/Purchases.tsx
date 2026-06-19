@@ -33,7 +33,7 @@ export default function Purchases() {
       <h1>My Courses</h1>
       <div className={styles.grid}>
         {courses.map((c) => (
-          <Link key={c._id} to={`/courses/${c._id}`} className={styles.card}>
+          <Link key={c._id} to={`/courses/${c._id}/learn`} className={styles.card}>
             <div className={styles.imgWrap}>
               {c.imageUrl ? (
                 <img src={c.imageUrl} alt={c.title} />
@@ -47,7 +47,7 @@ export default function Purchases() {
                 {c.description?.slice(0, 100)}
                 {c.description && c.description.length > 100 ? '...' : ''}
               </p>
-              <span className={styles.price}>View course →</span>
+              <span className={styles.price}>Continue learning →</span>
             </div>
           </Link>
         ))}

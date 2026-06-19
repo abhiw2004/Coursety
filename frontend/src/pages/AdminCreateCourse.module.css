@@ -4,6 +4,12 @@
   margin: 0 auto;
 }
 
+.pageWide {
+  max-width: 720px;
+  padding: 1rem 0;
+  margin: 0 auto;
+}
+
 .page h1 {
   margin-bottom: 1.5rem;
   color: #0e604d;

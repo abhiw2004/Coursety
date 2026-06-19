@@ -1,0 +1,159 @@
+.wrap {
+  margin-top: 2rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 1.25rem;
+  box-shadow: var(--shadow-sm);
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.header h2 {
+  font-size: 1.1rem;
+  color: #0e604d;
+}
+
+.addBtn,
+.addLessonBtn,
+.saveBtn {
+  background: #d9f36b;
+  color: #0a3327;
+  padding: 0.5rem 1rem;
+  font-weight: 600;
+  border-radius: 999px;
+  border: 1px solid #cce65d;
+  font-size: 0.85rem;
+}
+
+.addBtn:hover,
+.addLessonBtn:hover,
+.saveBtn:hover:not(:disabled) {
+  background: #e4f987;
+}
+
+.saveBtn {
+  margin-top: 1rem;
+  padding: 0.75rem 1.5rem;
+}
+
+.saveBtn:disabled {
+  opacity: 0.6;
+}
+
+.empty {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+}
+
+.section {
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  background: var(--bg-elevated);
+}
+
+.sectionHead {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.sectionInput {
+  flex: 1;
+  font-weight: 600;
+}
+
+.lesson {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.lesson input,
+.lesson textarea,
+.section input {
+  width: 100%;
+  padding: 0.6rem 0.75rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--text);
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.lesson input:focus,
+.lesson textarea:focus,
+.section input:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+.lesson textarea {
+  resize: vertical;
+}
+
+.lessonRow {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.lessonRow label {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.lessonRow label input[type='number'] {
+  width: 80px;
+  margin: 0;
+}
+
+.checkbox {
+  flex-direction: row !important;
+  align-items: center;
+  gap: 0.4rem !important;
+  color: var(--text) !important;
+}
+
+.checkbox input {
+  width: auto !important;
+  margin: 0 !important;
+}
+
+.removeBtn {
+  background: transparent;
+  color: #b1311f;
+  border: 1px solid #d9b3ad;
+  padding: 0.4rem 0.75rem;
+  border-radius: 8px;
+  font-size: 0.8rem;
+}
+
+.removeBtn:hover {
+  background: #fdecea;
+}
+
+.addLessonBtn {
+  width: 100%;
+}
+
+.error {
+  color: var(--error);
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+}

@@ -6,6 +6,7 @@ import Layout from './components/Layout'
 import Home from './pages/Home'
 import Courses from './pages/Courses'
 import CourseDetail from './pages/CourseDetail'
+import CourseLearn from './pages/CourseLearn'
 import SignIn from './pages/SignIn'
 import SignUp from './pages/SignUp'
 import Purchases from './pages/Purchases'
@@ -38,6 +39,14 @@ export default function App() {
         <Route index element={<Home />} />
         <Route path="courses" element={<Courses />} />
         <Route path="courses/:id" element={<CourseDetail />} />
+        <Route
+          path="courses/:id/learn"
+          element={
+            <AuthRoute>
+              <CourseLearn />
+            </AuthRoute>
+          }
+        />
 
         <Route path="signin" element={<SignIn />} />
         <Route path="signup" element={<SignUp />} />

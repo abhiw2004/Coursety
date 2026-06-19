@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { listCourses, type Course } from '../api'
+import { formatPrice } from '../utils/format'
 import styles from './Home.module.css'
 
 export default function Home() {
@@ -80,7 +81,7 @@ export default function Home() {
                   <h3>{course.title}</h3>
                   <div className={styles.courseMeta}>
                     <span>{course.description?.slice(0, 60) || 'Practical, hands-on learning'}</span>
-                    <strong>${course.price}</strong>
+                    <strong>{formatPrice(course.price)}</strong>
                   </div>
                 </div>
               </Link>

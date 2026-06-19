@@ -46,7 +46,7 @@ export default function InstructorCreateCourse() {
         <input value={title} onChange={(e) => setTitle(e.target.value)} required maxLength={200} />
         <label>Description</label>
         <textarea value={description} onChange={(e) => setDescription(e.target.value)} required rows={5} maxLength={5000} />
-        <label>Price ($)</label>
+        <label>Price (₹ INR, 0 = free)</label>
         <input type="number" step="0.01" min="0" value={price} onChange={(e) => setPrice(e.target.value)} required />
         <label>Thumbnail URL (optional)</label>
         <input value={imageUrl} onChange={(e) => setImageUrl(e.target.value)} placeholder="https://..." />

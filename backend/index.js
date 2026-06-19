@@ -9,6 +9,7 @@ const { authRouter } = require("./routes/auth");
 const { courseRouter } = require("./routes/course");
 const { instructorRouter } = require("./routes/instructor");
 const { adminRouter } = require("./routes/admin");
+const { paymentRouter } = require("./routes/payment");
 
 const REQUIRED_ENV = ["MONGODB_URL", "JWT_SECRET"];
 const missing = REQUIRED_ENV.filter((k) => !process.env[k]);
@@ -47,6 +48,7 @@ app.get("/health", (_req, res) => {
 });
 
 app.use("/api/v1/auth", authLimiter, authRouter);
+app.use("/api/v1/payments", paymentRouter);
 app.use("/api/v1/courses", courseRouter);
 app.use("/api/v1/instructor", instructorRouter);
 app.use("/api/v1/admin", adminRouter);

@@ -11,6 +11,26 @@ export interface PublicUser {
   role: Role
 }
 
+export interface Lesson {
+  _id: string
+  title: string
+  description?: string
+  videoUrl?: string
+  duration?: number
+  order?: number
+  isPreview?: boolean
+  hasVideo?: boolean
+  sectionTitle?: string
+  sectionId?: string
+}
+
+export interface Section {
+  _id: string
+  title: string
+  order?: number
+  lessons: Lesson[]
+}
+
 export interface Course {
   _id: string
   title: string
@@ -20,6 +40,16 @@ export interface Course {
   published?: boolean
   creatorId?: string | { _id: string; firstName?: string; lastName?: string }
   createdAt?: string
+  lessonCount?: number
+  sectionCount?: number
+  sections?: Section[]
+}
+
+export interface CourseProgress {
+  completed: number
+  total: number
+  percent: number
+  completedLessonIds: string[]
 }
 
 export interface InstructorRequestRecord {
@@ -28,6 +58,14 @@ export interface InstructorRequestRecord {
   reason?: string
   userId?: string | { email: string; firstName?: string; lastName?: string; role: Role; _id: string }
   createdAt?: string
+}
+
+export interface PaymentOrder {
+  orderId: string
+  amount: number
+  currency: string
+  keyId: string
+  courseTitle: string
 }
 
 const TOKEN_KEY = 'coursety_token'
@@ -80,7 +118,9 @@ export async function listCourses(): Promise<{ courses: Course[] }> {
   return request('/courses')
 }
 
-export async function getCourse(id: string): Promise<{ course: Course; creator?: { firstName?: string; lastName?: string } }> {
+export async function getCourse(
+  id: string
+): Promise<{ course: Course; creator?: { firstName?: string; lastName?: string }; enrolled?: boolean }> {
   const headers: Record<string, string> = {}
   const token = getToken()
   if (token) headers['Authorization'] = `Bearer ${token}`
@@ -90,8 +130,48 @@ export async function getCourse(id: string): Promise<{ course: Course; creator?:
   return data
 }
 
+export async function getCourseCurriculum(id: string): Promise<{
+  sections: Section[]
+  hasAccess: boolean
+  progress: CourseProgress
+}> {
+  const headers: Record<string, string> = {}
+  const token = getToken()
+  if (token) headers['Authorization'] = `Bearer ${token}`
+  const res = await fetch(`${API}/courses/${id}/curriculum`, { headers })
+  const data = await res.json().catch(() => ({}))
+  if (!res.ok) throw new Error(data.message || 'Failed to load curriculum')
+  return data
+}
+
+export async function getLesson(
+  courseId: string,
+  lessonId: string
+): Promise<{ lesson: Lesson; completed: boolean }> {
+  return request(`/courses/${courseId}/lessons/${lessonId}`, {}, true)
+}
+
+export async function markLessonComplete(
+  courseId: string,
+  lessonId: string
+): Promise<{ message: string; progress: CourseProgress }> {
+  return request(`/courses/${courseId}/lessons/${lessonId}/complete`, { method: 'POST' }, true)
+}
+
 export async function enrollCourse(id: string): Promise<{ message: string }> {
   return request(`/courses/${id}/enroll`, { method: 'POST' }, true)
+}
+
+export async function createPaymentOrder(courseId: string): Promise<PaymentOrder> {
+  return request('/payments/create-order', { method: 'POST', body: JSON.stringify({ courseId }) }, true)
+}
+
+export async function verifyPayment(input: {
+  razorpay_order_id: string
+  razorpay_payment_id: string
+  razorpay_signature: string
+}): Promise<{ message: string; enrolled: boolean }> {
+  return request('/payments/verify', { method: 'POST', body: JSON.stringify(input) }, true)
 }
 
 export async function getCourseAccess(id: string): Promise<{ access: boolean }> {
@@ -131,6 +211,10 @@ export async function updateCourse(
   return request(`/instructor/courses/${id}`, { method: 'PUT', body: JSON.stringify(input) }, true)
 }
 
+export async function updateCurriculum(id: string, sections: Section[]): Promise<{ course: Course }> {
+  return request(`/instructor/courses/${id}/curriculum`, { method: 'PUT', body: JSON.stringify({ sections }) }, true)
+}
+
 export async function deleteCourse(id: string): Promise<{ message: string }> {
   return request(`/instructor/courses/${id}`, { method: 'DELETE' }, true)
 }
@@ -153,4 +237,45 @@ export async function adminListUsers(): Promise<{ users: PublicUser[] }> {
 
 export async function adminSetRole(userId: string, role: Role): Promise<{ user: PublicUser }> {
   return request(`/admin/users/${userId}/role`, { method: 'POST', body: JSON.stringify({ role }) }, true)
+}
+
+let razorpayLoadPromise: Promise<void> | null = null
+
+export function loadRazorpayScript(): Promise<void> {
+  if (window.Razorpay) return Promise.resolve()
+  if (razorpayLoadPromise) return razorpayLoadPromise
+  razorpayLoadPromise = new Promise((resolve, reject) => {
+    const script = document.createElement('script')
+    script.src = 'https://checkout.razorpay.com/v1/checkout.js'
+    script.async = true
+    script.onload = () => resolve()
+    script.onerror = () => reject(new Error('Failed to load Razorpay'))
+    document.body.appendChild(script)
+  })
+  return razorpayLoadPromise
+}
+
+export async function openRazorpayCheckout(
+  order: PaymentOrder,
+  user: PublicUser,
+  onSuccess: (response: RazorpaySuccessResponse) => void,
+  onDismiss?: () => void
+): Promise<void> {
+  await loadRazorpayScript()
+  const rzp = new window.Razorpay({
+    key: order.keyId,
+    amount: order.amount,
+    currency: order.currency,
+    name: 'CourseTy',
+    description: order.courseTitle,
+    order_id: order.orderId,
+    prefill: {
+      email: user.email,
+      name: [user.firstName, user.lastName].filter(Boolean).join(' ') || user.email,
+    },
+    theme: { color: '#0f6d57' },
+    handler: onSuccess,
+    modal: { ondismiss: onDismiss },
+  })
+  rzp.open()
 }
